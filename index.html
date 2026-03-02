@@ -464,14 +464,20 @@
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .prelaunch-hero {
-                min-height: calc(100vh - 40px);
-                padding: 48px var(--page-margin) 56px;
+                min-height: auto;
+                padding: 64px var(--page-margin) 56px;
             }
             .hero-logo { margin-bottom: 36px; }
             .hero-subtitle { margin-bottom: 40px; }
             .email-card { padding: 24px 20px 20px; }
+            .story-intro {
+                padding: 56px var(--page-margin) 0;
+            }
             .story-section {
-                padding: 56px var(--page-margin);
+                padding: 40px var(--page-margin);
+            }
+            .story-cta {
+                padding-top: 8px;
             }
             .footer-inner {
                 flex-direction: column;
@@ -486,10 +492,17 @@
         }
 
         @media (max-width: 480px) {
+            .prelaunch-hero {
+                padding: 48px var(--page-margin) 48px;
+            }
             .hero-logo { font-size: 1.25rem; gap: 10px; }
+            .hero-subtitle { margin-bottom: 32px; }
             .email-form { flex-direction: column; }
             .email-form input[type="email"] { width: 100%; }
             .email-form .btn { width: 100%; }
+            .story-section {
+                padding: 32px var(--page-margin);
+            }
         }
     </style>
 </head>
