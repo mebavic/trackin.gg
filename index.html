@@ -267,6 +267,11 @@
             padding-top: 16px;
         }
 
+        .story-cta .reveal {
+            border-left: 3px solid var(--accent);
+            padding-left: 24px;
+        }
+
         .story-cta-text {
             font-size: 1.0625rem;
             line-height: 1.7;
@@ -538,7 +543,13 @@
                     <div class="email-success-icon">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <p>You're on the list.<span>We'll let you know the moment we launch.</span></p>
+                    <p id="emailSuccessText">You're on the list.<span>We'll let you know the moment we launch.</span></p>
+                </div>
+                <div class="email-success" id="emailDuplicate">
+                    <div class="email-success-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                    <p>Easy there, you're already in!<span>We haven't forgotten about you. Sit tight.</span></p>
                 </div>
             </div>
 
@@ -872,10 +883,15 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         })
-        .then(function() {
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
             form.style.display = 'none';
             document.getElementById('emailTrust').style.display = 'none';
-            document.getElementById('emailSuccess').classList.add('visible');
+            if (result.duplicate) {
+                document.getElementById('emailDuplicate').classList.add('visible');
+            } else {
+                document.getElementById('emailSuccess').classList.add('visible');
+            }
         })
         .catch(function() {
             btn.disabled = false;
@@ -991,8 +1007,13 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         })
-        .then(function() {
-            form.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">You\'re in. We\'ll be in touch.</p>';
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+            if (result.duplicate) {
+                form.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">Easy there, you\'re already in! We haven\'t forgotten about you.</p>';
+            } else {
+                form.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">You\'re in. We\'ll be in touch.</p>';
+            }
         })
         .catch(function() {
             btn.disabled = false;
