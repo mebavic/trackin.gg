@@ -517,6 +517,7 @@
                 <h2 class="email-heading">Want to know when we launch?</h2>
                 <form class="email-form" id="emailForm" action="#" method="POST">
                     <input type="email" name="email" placeholder="you@company.com" required>
+                    <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0;height:0" tabindex="-1" autocomplete="off">
                     <button type="submit" class="btn btn-primary">Notify Me</button>
                 </form>
                 <p class="email-trust" id="emailTrust">No spam. Just one email when we're ready.</p>
@@ -579,6 +580,7 @@
         </div>
         <form class="email-form story-cta-form reveal" id="emailFormBottom" action="#" method="POST">
             <input type="email" name="email" placeholder="you@company.com" required>
+            <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0;height:0" tabindex="-1" autocomplete="off">
             <button type="submit" class="btn btn-primary">I'm in</button>
         </form>
     </section>
@@ -842,11 +844,31 @@
     ro.observe(heroEl);
 
     // ── Email form ──
+    var WAITLIST_URL = 'https://waitlist-hpf2gdasda-ew.a.run.app';
+
     document.getElementById('emailForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        this.style.display = 'none';
-        document.getElementById('emailTrust').style.display = 'none';
-        document.getElementById('emailSuccess').classList.add('visible');
+        var form = this;
+        var data = Object.fromEntries(new FormData(form));
+        var btn = form.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        fetch(WAITLIST_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        })
+        .then(function() {
+            form.style.display = 'none';
+            document.getElementById('emailTrust').style.display = 'none';
+            document.getElementById('emailSuccess').classList.add('visible');
+        })
+        .catch(function() {
+            btn.disabled = false;
+            btn.textContent = 'Notify Me';
+            alert('Something went wrong. Please try again.');
+        });
     });
 
     // ── Typing effect with queue ──
@@ -945,7 +967,25 @@
     // ── Bottom email form ──
     document.getElementById('emailFormBottom').addEventListener('submit', function(e) {
         e.preventDefault();
-        this.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">You\'re in. We\'ll be in touch.</p>';
+        var form = this;
+        var data = Object.fromEntries(new FormData(form));
+        var btn = form.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        fetch(WAITLIST_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        })
+        .then(function() {
+            form.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">You\'re in. We\'ll be in touch.</p>';
+        })
+        .catch(function() {
+            btn.disabled = false;
+            btn.textContent = "I'm in";
+            alert('Something went wrong. Please try again.');
+        });
     });
     </script>
 
