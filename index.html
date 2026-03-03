@@ -195,7 +195,7 @@
 
         /* ── Storytelling ── */
         .story-intro {
-            padding: 80px var(--page-margin) 0;
+            padding: 80px var(--page-margin) 64px;
             text-align: center;
         }
 
@@ -209,9 +209,20 @@
         }
 
         .story-section {
-            max-width: 600px;
+            padding: 56px var(--page-margin);
+        }
+
+        .story-flow {
+            max-width: 620px;
             margin: 0 auto;
-            padding: 80px var(--page-margin);
+            display: block;
+        }
+
+        .story-track {
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px 28px;
         }
 
         .story-num {
@@ -224,6 +235,7 @@
             letter-spacing: -0.035em;
             line-height: 1.15;
             margin-bottom: 20px;
+            max-width: 20ch;
         }
 
         .story-title em {
@@ -260,27 +272,61 @@
             font-size: 1rem;
             line-height: 1.7;
             color: var(--text-secondary);
+            max-width: 56ch;
+            text-align: left;
+        }
+
+        .story-track .story-section .reveal {
+            --x-offset: 0px;
+            transform: translate(var(--x-offset), 32px);
+            border-left: 0;
+            padding-left: 0;
+        }
+
+        .story-track .story-section .reveal.visible {
+            transform: translate(var(--x-offset), 0);
+        }
+
+        .story-track .pain-climax {
+            grid-column: 1 / -1;
+        }
+
+        .story-climax .reveal {
+            background: none;
+            border: 0;
+            border-left: 0;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .story-climax .story-title {
+            font-size: clamp(1.875rem, 3.2vw, 2.45rem);
         }
 
         /* Story bottom CTA */
         .story-cta {
-            padding-top: 16px;
+            padding-top: 4px;
         }
 
-        .story-cta .reveal {
-            border-left: 3px solid var(--accent);
-            padding-left: 24px;
+        .story-cta-lead {
+            font-size: clamp(1.1rem, 1.75vw, 1.28rem);
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            max-width: 52ch;
         }
 
         .story-cta-text {
             font-size: 1.0625rem;
             line-height: 1.7;
             color: var(--text-secondary);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
+            max-width: 54ch;
         }
 
         .story-cta-text:last-of-type {
-            margin-bottom: 28px;
+            margin-bottom: 10px;
         }
 
         .story-cta-text strong {
@@ -290,6 +336,17 @@
 
         .story-cta-form {
             max-width: 400px;
+            margin-top: 2px;
+        }
+
+        .story-final {
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 10px var(--page-margin) 30px;
+        }
+
+        .story-final .reveal {
+            transform: translateY(24px);
         }
 
         /* Divider — removed, padding is the separator */
@@ -470,43 +527,96 @@
         @media (max-width: 768px) {
             .prelaunch-hero {
                 min-height: auto;
-                padding: 64px var(--page-margin) 56px;
+                padding: 52px var(--page-margin) 28px;
             }
-            .hero-logo { margin-bottom: 36px; }
-            .hero-subtitle { margin-bottom: 40px; }
+            .hero-logo { margin-bottom: 28px; }
+            .hero-subtitle { margin-bottom: 24px; }
             .email-card { padding: 24px 20px 20px; }
             .story-intro {
-                padding: 56px var(--page-margin) 0;
+                padding: 56px var(--page-margin) 40px;
+            }
+            .story-track {
+                max-width: 100%;
+                display: block;
             }
             .story-section {
-                padding: 40px var(--page-margin);
+                padding: 36px var(--page-margin);
+            }
+            .story-track .story-section .reveal,
+            .story-track .story-section:nth-of-type(odd):not(.story-cta) .reveal,
+            .story-track .story-section:nth-of-type(even):not(.story-cta) .reveal {
+                --x-offset: 0px;
+                border-left-width: 0;
+                padding-left: 0;
             }
             .story-cta {
-                padding-top: 8px;
+                padding-top: 2px;
+            }
+            .story-final {
+                max-width: 100%;
+                padding: 6px var(--page-margin) 20px;
+            }
+            .story-cta-lead {
+                font-size: 1.04rem;
+                line-height: 1.65;
+                margin-bottom: 10px;
+            }
+            .story-cta-text {
+                margin-bottom: 12px;
+            }
+            .story-cta-text:last-of-type {
+                margin-bottom: 8px;
             }
             .footer-inner {
                 flex-direction: column;
-                gap: 16px;
+                gap: 12px;
                 align-items: center;
+                padding: 16px 0 18px;
             }
             .footer-right {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 16px;
+                gap: 12px;
+            }
+            .prelaunch-footer {
+                margin-top: 20px;
             }
         }
 
         @media (max-width: 480px) {
             .prelaunch-hero {
-                padding: 48px var(--page-margin) 48px;
+                padding: 42px var(--page-margin) 18px;
             }
             .hero-logo { font-size: 1.25rem; gap: 10px; }
-            .hero-subtitle { margin-bottom: 32px; }
+            .hero-subtitle { margin-bottom: 18px; }
+            .email-card { padding: 18px 14px 14px; }
+            .email-heading { margin-bottom: 12px; }
             .email-form { flex-direction: column; }
             .email-form input[type="email"] { width: 100%; }
             .email-form .btn { width: 100%; }
+            .email-trust { margin-top: 2px; }
             .story-section {
-                padding: 32px var(--page-margin);
+                padding: 28px var(--page-margin);
+            }
+            .prelaunch-footer {
+                margin-top: 14px;
+            }
+            .footer-sep {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fade-up,
+            .reveal,
+            .typing-cursor {
+                animation: none !important;
+                transition: none !important;
+            }
+            .fade-up,
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
             }
         }
     </style>
@@ -556,59 +666,6 @@
         </div>
     </section>
 
-    <!-- Storytelling -->
-    <div class="story-intro reveal">
-        <h2 class="story-intro-headline type-target">Every number in your Ads Manager is a guess.</h2>
-    </div>
-
-    <section class="story-section">
-        <div class="reveal">
-            <h3 class="story-title">Browsers are <em>blocking</em> your tracking pixels</h3>
-            <p class="story-desc type-target">Safari, Firefox, and soon Chrome silently drop your conversion tags. The data just disappears. You never see an error — you just never see the conversion.</p>
-        </div>
-    </section>
-
-    <section class="story-section">
-        <div class="reveal">
-            <h3 class="story-title">iOS 14+ hides <em>half</em> your traffic</h3>
-            <p class="story-desc type-target">Apple's ATT framework means most iPhone users are invisible to your ads. That's not a rounding error — that's half your customers, gone from your reports entirely.</p>
-        </div>
-    </section>
-
-    <section class="story-section">
-        <div class="reveal">
-            <h3 class="story-title">Your conversions are "modeled" — i.e., <em>made up</em></h3>
-            <p class="story-desc type-target">Google and Meta fill in the gaps with statistical models. They report what they think happened, not what actually did. You're optimizing campaigns on guesswork wearing a lab coat.</p>
-        </div>
-    </section>
-
-    <section class="story-section">
-        <div class="reveal">
-            <h3 class="story-title">No refunds, no new customers, no <em>real</em> revenue</h3>
-            <p class="story-desc type-target">A 5x ROAS campaign looks great — until you realize 30% refunded and 80% were existing customers buying again. The number that matters isn't in any dashboard.</p>
-        </div>
-    </section>
-
-    <section class="story-section">
-        <div class="reveal">
-            <h3 class="story-title">Five dashboards to find <em>one truth</em></h3>
-            <p class="story-desc type-target">Google Ads, Meta, GA4, BigQuery, spreadsheets. By the time you piece together a coherent picture, the data is already stale and the budget is already spent.</p>
-        </div>
-    </section>
-
-    <!-- Bottom CTA -->
-    <section class="story-section story-cta">
-        <div class="reveal">
-            <p class="story-cta-text">So we built an attribution tool that connects directly to your store, matches every order to the click that caused it, and sends the real numbers back to your ad platforms. No models. No guessing. Just what actually happened.</p>
-            <p class="story-cta-text"><strong>It's almost ready. Leave your email. When we flip the switch, you'll be the first to know.</strong></p>
-        </div>
-        <form class="email-form story-cta-form reveal" id="emailFormBottom" action="#" method="POST">
-            <input type="email" name="email" placeholder="you@company.com" required>
-            <input type="text" name="website" style="position:absolute;left:-9999px;opacity:0;height:0" tabindex="-1" autocomplete="off">
-            <button type="submit" class="btn btn-primary">I'm in</button>
-        </form>
-    </section>
-
     <!-- Footer -->
     <footer class="prelaunch-footer">
         <div class="footer-inner">
@@ -636,14 +693,15 @@
     import * as THREE from 'three';
 
     // ── Config ──
-    const PARTICLE_COUNT = 500;
+    const disableHeavyMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 768px)').matches;
+    const PARTICLE_COUNT = disableHeavyMotion ? 220 : 500;
     const INNER_RADIUS = 2.0;
     const OUTER_RADIUS = 4.5;
     const BREATH_SPEED = 0.25;
-    const BREATH_AMOUNT = 0.06;
-    const MOUSE_ATTRACTION = 0.005;
+    const BREATH_AMOUNT = disableHeavyMotion ? 0.03 : 0.06;
+    const MOUSE_ATTRACTION = disableHeavyMotion ? 0.003 : 0.005;
     const VELOCITY_SMOOTHING = 0.001;
-    const TRAIL_STRENGTH = 0.12;
+    const TRAIL_STRENGTH = disableHeavyMotion ? 0.07 : 0.12;
     const RIPPLE_FREQ = 2.5;
     const RIPPLE_SPEED = 0.4;
     const RIPPLE_AMP = 0.15;
@@ -757,7 +815,7 @@
     const spritePos = new THREE.Vector3(0, 0, 0);
     const velocity = new THREE.Vector3(0, 0, 0);
 
-    heroEl.addEventListener('pointermove', function(e) {
+    if (!disableHeavyMotion) heroEl.addEventListener('pointermove', function(e) {
         const rect = renderer.domElement.getBoundingClientRect();
         const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         const ny = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -770,7 +828,7 @@
     });
 
     // Reset target when mouse leaves
-    heroEl.addEventListener('pointerleave', function() {
+    if (!disableHeavyMotion) heroEl.addEventListener('pointerleave', function() {
         target.set(0, 0, 0);
     });
 
@@ -883,7 +941,10 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         })
-        .then(function(r) { return r.json(); })
+        .then(function(r) {
+            if (!r.ok) throw new Error(r.status);
+            return r.json();
+        })
         .then(function(result) {
             form.style.display = 'none';
             document.getElementById('emailTrust').style.display = 'none';
@@ -928,6 +989,7 @@
     // but only processed one at a time in sequence.
     var typeQueue = [];
     var isTyping = false;
+    var shouldType = !(window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(max-width: 768px)').matches);
 
     function processQueue() {
         if (isTyping || typeQueue.length === 0) return;
@@ -955,6 +1017,10 @@
     // Store original text but keep it invisible (preserves full height — no layout shift)
     var typeTargets = document.querySelectorAll('.type-target');
     typeTargets.forEach(function(el) {
+        if (!shouldType) {
+            el.style.color = '';
+            return;
+        }
         el.setAttribute('data-text', el.textContent);
         el.style.color = 'transparent';
     });
@@ -972,7 +1038,7 @@
             // Check if this reveal has a type target
             var target = el.classList.contains('type-target') ? el : el.querySelector('.type-target');
 
-            if (target && target.getAttribute('data-text')) {
+            if (shouldType && target && target.getAttribute('data-text')) {
                 var text = target.getAttribute('data-text');
                 target.removeAttribute('data-text');
                 var speed = target.classList.contains('story-intro-headline') ? 30 : 14;
@@ -993,34 +1059,6 @@
         revealObserver.observe(el);
     });
 
-    // ── Bottom email form ──
-    document.getElementById('emailFormBottom').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var form = this;
-        var data = Object.fromEntries(new FormData(form));
-        var btn = form.querySelector('button');
-        btn.disabled = true;
-        btn.textContent = 'Sending...';
-
-        fetch(WAITLIST_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(result) {
-            if (result.duplicate) {
-                form.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">Easy there, you\'re already in! We haven\'t forgotten about you.</p>';
-            } else {
-                form.innerHTML = '<p style="font-size: 0.9375rem; font-weight: 600; color: var(--accent-dark); padding: 12px 0;">You\'re in. We\'ll be in touch.</p>';
-            }
-        })
-        .catch(function() {
-            btn.disabled = false;
-            btn.textContent = "I'm in";
-            alert('Something went wrong. Please try again.');
-        });
-    });
     </script>
 
 </body>
